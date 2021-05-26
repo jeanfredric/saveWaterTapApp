@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/water_saver"
+        android:enabled="true"
+        android:icon="@drawable/ic_outline_water_drop_24"
+        android:title="@string/water_saver"/>
+    <item
+        android:id="@+id/jokes"
+        android:enabled="true"
+        android:icon="@drawable/ic_outline_menu_book_24"
+        android:title="@string/jokes"/>
+    <item
+        android:id="@+id/about"
+        android:enabled="true"
+        android:icon="@drawable/ic_outline_info_24"
+        android:title="@string/about"/>
+</menu>

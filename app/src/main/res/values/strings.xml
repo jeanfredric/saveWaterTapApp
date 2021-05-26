@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">saveWaterTapApp</string>
+    <string name="app_name">Save Water Tap App</string>
+    <string name="water_saver">WATER SAVER</string>
+    <string name="jokes">JOKES</string>
+    <string name="about">ABOUT</string>
+    <string name="save_water_btn">SAVE WATER NOW</string>
 </resources>
