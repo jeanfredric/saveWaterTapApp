@@ -1,7 +1,16 @@
 <resources>
-    <string name="app_name">Save Water Tap App</string>
+    <string name="app_name">Save Water Tap</string>
     <string name="water_saver">WATER SAVER</string>
     <string name="jokes">JOKES</string>
     <string name="about">ABOUT</string>
     <string name="save_water_btn">SAVE WATER NOW</string>
+
+    <string name="liters_saved">0</string>
+    <string name="you_have_saved">You have saved</string>
+    <string name="liters_of_water">liters of water</string>
+    <string name="equals">Which equals</string>
+    <string name="equals_text">Nothing... Hit that button to change that!</string>
+
+    <string name="shake_device">"Shake your device for a new dazzling joke that saves water!"</string>
+
 </resources>
