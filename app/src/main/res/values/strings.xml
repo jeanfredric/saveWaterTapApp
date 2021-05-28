@@ -1,16 +1,24 @@
 <resources>
+    <!-- Main Activity -->
     <string name="app_name">Save Water Tap</string>
     <string name="water_saver">WATER SAVER</string>
     <string name="jokes">JOKES</string>
     <string name="about">ABOUT</string>
     <string name="save_water_btn">SAVE WATER NOW</string>
 
+    <!-- Water Saver Fragment -->
     <string name="liters_saved">0</string>
     <string name="you_have_saved">You have saved</string>
     <string name="liters_of_water">liters of water</string>
     <string name="equals">Which equals</string>
     <string name="equals_text">Nothing... Hit that button to change that!</string>
 
+    <!-- Jokes Fragment -->
     <string name="shake_device">"Shake your device for a new dazzling joke that saves water!"</string>
+    <string name="joke_title">Joke title</string>
+    <string name="joke_body">Once upon in the time there was two tomatoes that were about to cross the road... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+
+    <!-- About Fragment -->
+    <string name="about_text">It\'s all about saving water peeps.</string>
 
 </resources>
