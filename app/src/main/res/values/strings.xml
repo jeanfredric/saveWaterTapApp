@@ -13,12 +13,19 @@
     <string name="equals">Which equals</string>
     <string name="equals_text">Nothing... Hit that button to change that!</string>
 
+    <!-- About Fragment -->
+    <string name="about_text">It\'s all about saving water peeps.</string>
+
     <!-- Jokes Fragment -->
     <string name="shake_device">"Shake your device for a new dazzling joke that saves water!"</string>
     <string name="joke_title">Joke title</string>
     <string name="joke_body">Once upon in the time there was two tomatoes that were about to cross the road... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
 
-    <!-- About Fragment -->
-    <string name="about_text">It\'s all about saving water peeps.</string>
+    <!-- Joke Resources -->
+    <string name="joke_title_src_1">Uppdaterat tomatskämt</string>
+    <string name="joke_body_src_1">Denna är uppdaterad</string>
+    <string name="joke_title_src_2">Gud</string>
+    <string name="joke_body_src_2">Förbannat</string>
+
 
 </resources>

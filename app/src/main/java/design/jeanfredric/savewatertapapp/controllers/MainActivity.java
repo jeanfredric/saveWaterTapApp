@@ -3,6 +3,7 @@ package design.jeanfredric.savewatertapapp.controllers;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,8 +21,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Initialize bottom navigation menu
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigatonItemSelectedListener);
+
+        //Initialize the home screen fragment
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WaterTapFragment()).commit();
     }
 

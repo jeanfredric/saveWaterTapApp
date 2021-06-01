@@ -24,7 +24,7 @@ public class Jokes {
     /**
      * Constructor.
      */
-    Jokes() {
+    public Jokes() {
         unViewedJokes = new ArrayList<Joke>();
         viewedJokes = new ArrayList<Joke>();
     }
@@ -33,7 +33,7 @@ public class Jokes {
      * Adds a joke to the collection of jokes.
      * @param joke The joke to be added.
      */
-    public void addJoke(Joke joke) {
+    public void add(Joke joke) {
         unViewedJokes.add(joke);
     }
 
@@ -43,10 +43,8 @@ public class Jokes {
      */
     public Joke randomizeJoke() {
         int nrOfUnViewedJokes = unViewedJokes.size();
-        int randomIndex = (int)(Math.random() * (nrOfUnViewedJokes + 1));
+        int randomIndex = (int)(Math.random() * nrOfUnViewedJokes);
         Joke newJoke = unViewedJokes.get(randomIndex);
-        //Kanske borde hanteras av controller
-        markAsViewed(newJoke);
         return newJoke;
     }
 
@@ -70,7 +68,7 @@ public class Jokes {
      * Marks a previous unviewed joke as viewed.
      * @param newJoke Joke to be remarked.
      */
-    private void markAsViewed(Joke newJoke) {
+    public void markAsViewed(Joke newJoke) {
         unViewedJokes.remove(newJoke);
         viewedJokes.add(newJoke);
     }

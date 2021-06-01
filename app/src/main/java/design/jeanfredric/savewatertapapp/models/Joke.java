@@ -16,42 +16,43 @@ package design.jeanfredric.savewatertapapp.models;
 
 public class Joke {
 
-    private String title;
-    private String joke;
-    private String img;
+    private int title;
+    private int joke;
+    private int img;
 
     /**
      * Constructor.
-     * @param jokeText The string of the new joke.
-     * @param jokeImage Image related to the joke.
+     * @param jokeTitle Reference to the string of the new joke's title.
+     * @param jokeBody Reference to the string of the new joke.
+     * @param jokeImage Reference to the image related to the joke.
      */
-    public Joke(String jokeTitle, String jokeText, String jokeImage) {
+    public Joke(int jokeTitle, int jokeBody, int jokeImage) {
         title = jokeTitle;
-        joke = jokeText;
+        joke = jokeBody;
         img = jokeImage;
     }
 
     /**
      * Gets the title of the joke.
-     * @return The title of the joke.
+     * @return A reference to the string of the joke title.
      */
-    public String getJokeTitle() {
+    public int getJokeTitle() {
         return title;
     }
 
     /**
      * Gets the body text of the joke.
-     * @return The string of the joke.
+     * @return A reference to the string of the joke body.
      */
-    public String getJokeText() {
+    public int getJokeBody() {
         return joke;
     }
 
     /**
      * Gets the image source path.
-     * @return The image related to the joke.
+     * @return A reference to the image related to the joke.
      */
-    public String getJokeImage() {
+    public int getJokeImage() {
         return img;
     }
 

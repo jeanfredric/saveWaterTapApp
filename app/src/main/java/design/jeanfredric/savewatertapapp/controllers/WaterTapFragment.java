@@ -17,6 +17,16 @@ public class WaterTapFragment extends Fragment {
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @org.jetbrains.annotations.NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_watertap, container, false);
+        View v = inflater.inflate(R.layout.fragment_watertap, container, false);
+
+        //Button listener
+
+            //Spela upp ljud
+
+            //Iterera liters consumed
+
+            //Uppdatera equals consumptionFacts
+
+        return v;
     }
 }
