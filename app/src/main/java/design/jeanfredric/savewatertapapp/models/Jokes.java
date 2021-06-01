@@ -14,12 +14,16 @@
 
 package design.jeanfredric.savewatertapapp.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class Jokes {
+public class Jokes implements Parcelable {
 
     private ArrayList<Joke> unViewedJokes;
     private ArrayList<Joke> viewedJokes;
+    private Joke activeJoke;
 
     /**
      * Constructor.
@@ -28,6 +32,31 @@ public class Jokes {
         unViewedJokes = new ArrayList<Joke>();
         viewedJokes = new ArrayList<Joke>();
     }
+
+    /**
+     * Parcelable method.
+     * @param in
+     */
+    protected Jokes(Parcel in) {
+        unViewedJokes = in.createTypedArrayList(Joke.CREATOR);
+        viewedJokes = in.createTypedArrayList(Joke.CREATOR);
+        activeJoke = in.readParcelable(Joke.class.getClassLoader());
+    }
+
+    /**
+     * Parcelable method.
+     */
+    public static final Creator<Jokes> CREATOR = new Creator<Jokes>() {
+        @Override
+        public Jokes createFromParcel(Parcel in) {
+            return new Jokes(in);
+        }
+
+        @Override
+        public Jokes[] newArray(int size) {
+            return new Jokes[size];
+        }
+    };
 
     /**
      * Adds a joke to the collection of jokes.
@@ -44,8 +73,8 @@ public class Jokes {
     public Joke randomizeJoke() {
         int nrOfUnViewedJokes = unViewedJokes.size();
         int randomIndex = (int)(Math.random() * nrOfUnViewedJokes);
-        Joke newJoke = unViewedJokes.get(randomIndex);
-        return newJoke;
+        activeJoke = unViewedJokes.get(randomIndex);
+        return activeJoke;
     }
 
     /**
@@ -71,5 +100,34 @@ public class Jokes {
     public void markAsViewed(Joke newJoke) {
         unViewedJokes.remove(newJoke);
         viewedJokes.add(newJoke);
+    }
+
+    /**
+     * Returns the active joke.
+     * @return The active joke.
+     */
+    public Joke getActiveJoke() {
+        return activeJoke;
+    }
+
+    /**
+     * Parcelable method.
+     * @return
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * Parcelable method.
+     * @param dest
+     * @param flags
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(unViewedJokes);
+        dest.writeTypedList(viewedJokes);
+        dest.writeParcelable(activeJoke, flags);
     }
 }

@@ -14,7 +14,10 @@
 
 package design.jeanfredric.savewatertapapp.models;
 
-public class Joke {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Joke implements Parcelable {
 
     private int title;
     private int joke;
@@ -31,6 +34,31 @@ public class Joke {
         joke = jokeBody;
         img = jokeImage;
     }
+
+    /**
+     * Parcelable method.
+     * @param in
+     */
+    protected Joke(Parcel in) {
+        title = in.readInt();
+        joke = in.readInt();
+        img = in.readInt();
+    }
+
+    /**
+     * Parcelable method.
+     */
+    public static final Creator<Joke> CREATOR = new Creator<Joke>() {
+        @Override
+        public Joke createFromParcel(Parcel in) {
+            return new Joke(in);
+        }
+
+        @Override
+        public Joke[] newArray(int size) {
+            return new Joke[size];
+        }
+    };
 
     /**
      * Gets the title of the joke.
@@ -56,4 +84,24 @@ public class Joke {
         return img;
     }
 
+    /**
+     * Parcelable method.
+     * @return
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * Parcelable method.
+     * @param dest
+     * @param flags
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(title);
+        dest.writeInt(joke);
+        dest.writeInt(img);
+    }
 }

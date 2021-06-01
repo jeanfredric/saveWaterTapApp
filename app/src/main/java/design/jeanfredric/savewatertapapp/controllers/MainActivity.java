@@ -16,39 +16,61 @@ import design.jeanfredric.savewatertapapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Fragment waterTapFragment;
+    private Fragment jokesFragment;
+    private Fragment aboutFragment;
+    private FragmentManager fragmentManager;
+    private Fragment activeFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Initialize all the fragments
+        waterTapFragment = new WaterTapFragment();
+        jokesFragment = new JokesFragment();
+        aboutFragment = new AboutFragment();
+        fragmentManager = getSupportFragmentManager();
+        activeFragment = waterTapFragment;
+
+        //Show the current fragment
+        fragmentManager.beginTransaction().add(R.id.fragment_container, waterTapFragment).hide(activeFragment).commit();
+        fragmentManager.beginTransaction().add(R.id.fragment_container, jokesFragment).hide(jokesFragment).commit();
+        fragmentManager.beginTransaction().add(R.id.fragment_container, aboutFragment).hide(aboutFragment).commit();
+        fragmentManager.beginTransaction().show(activeFragment).commit();
+
+
+
         //Initialize bottom navigation menu
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigatonItemSelectedListener);
 
-        //Initialize the home screen fragment
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WaterTapFragment()).commit();
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navigatonItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private BottomNavigationView.OnNavigationItemSelectedListener navigatonItemSelectedListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
 
-            Fragment selectedFragment = null;
             switch (item.getItemId()) {
                 case R.id.water_saver:
-                    selectedFragment = new WaterTapFragment();
+                    fragmentManager.beginTransaction().hide(activeFragment).show(waterTapFragment).commit();
+                    activeFragment = waterTapFragment;
                     break;
                 case R.id.jokes:
-                    selectedFragment = new JokesFragment();
+                    fragmentManager.beginTransaction().hide(activeFragment).show(jokesFragment).commit();
+                    activeFragment = jokesFragment;
                     break;
                 case R.id.about:
-                    selectedFragment = new AboutFragment();
+                    fragmentManager.beginTransaction().hide(activeFragment).show(aboutFragment).commit();
+                    activeFragment = aboutFragment;
                     break;
             }
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
             return true;
         }
     };
+
 }
 
