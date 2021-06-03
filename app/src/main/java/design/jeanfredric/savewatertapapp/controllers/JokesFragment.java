@@ -32,14 +32,12 @@ public class JokesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Collect ongoing jokes instance if fragment was closed
+        // Collect ongoing jokes instance if fragment was destroyed
         if (savedInstanceState != null) {
             jokes = savedInstanceState.getParcelable(JOKES_KEY);
         }
         else {
             jokes = new Jokes();
-            //Fyll även denna med en massa data
             jokes.add(new Joke(R.string.joke_title_src_1, R.string.joke_body_src_1, R.drawable.tomato));
             jokes.add(new Joke(R.string.joke_title_src_2, R.string.joke_body_src_2, R.drawable.jokes_empty));
         }
@@ -62,7 +60,7 @@ public class JokesFragment extends Fragment {
             jokes.randomizeJoke();
         }
 
-        //Placera skämet på vyn
+        //Attach active joke on the view
         displayingTitle.setText(jokes.getActiveJoke().getJokeTitle());
         displayingBody.setText(jokes.getActiveJoke().getJokeBody());
         displayingImg.setImageResource(jokes.getActiveJoke().getJokeImage());
