@@ -27,9 +27,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import design.jeanfredric.savewatertapapp.R;
+import design.jeanfredric.savewatertapapp.databinding.FragmentWatertapBinding;
 import design.jeanfredric.savewatertapapp.models.ConsumptionFacts;
 import design.jeanfredric.savewatertapapp.models.WaterTap;
 
@@ -40,20 +42,29 @@ public class WaterTapFragment extends Fragment {
     private WaterTap waterTap;
     private ConsumptionFacts consumptionFacts;
 
+
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        waterTap = new WaterTap();
+        consumptionFacts = new ConsumptionFacts();
+        consumptionFacts.add(10, "How much clean water a Sub-Saharan African household consumes in a day.");
+        consumptionFacts.add(50, "Femtio är mycket de.");
+    }
+
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @org.jetbrains.annotations.NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_watertap, container, false);
-
-        waterTap = new WaterTap();
-        consumptionFacts = new ConsumptionFacts();
-        consumptionFacts.add(10, "How much water a Sub-Saharan African household consumes in a day.");
-        consumptionFacts.add(50, "Femtio är mycket de rerå rååÅ RÅ RÅ RÅ!!!");
-
         saveWaterButton = v.findViewById(R.id.save_water_btn);
-        litersSaved = v.findViewById(R.id.liters_saved);
-        litersSaved.setText("0");
+
+        //TODO: Detta vill sig inte (DataBinderMapperImpl.java:9: error: cannot find symbol
+        //TODO: import design.jeanfredric.savewatertapapp.databinding.FragmentWatertapBindingImpl;)
+        FragmentWatertapBinding fragmentWatertapBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_watertap, null, false);
+        View bindingView = fragmentWatertapBinding.getRoot();
+        fragmentWatertapBinding.setWatertap(waterTap);
 
         //Button listener
         saveWaterButton.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +83,7 @@ public class WaterTapFragment extends Fragment {
             }
         });
 
-        return v;
+        //TODO: Misstänker att jag måste köra all kommunikation via databinding
+        return bindingView;
     }
 }

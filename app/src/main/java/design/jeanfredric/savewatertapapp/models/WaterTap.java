@@ -17,18 +17,24 @@ package design.jeanfredric.savewatertapapp.models;
 
 import android.util.Log;
 
+import androidx.databinding.ObservableInt;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class WaterTap {
-
+    //TODO Funkare om man lägger denna private?
+    public final ObservableInt litersConsumedObservable;
     private int litersConsumed;
+
     private boolean isOn;
     Timer timer;
     TimerTask timerTask;
 
     public WaterTap() {
         litersConsumed = 0;
+        litersConsumedObservable = new ObservableInt();
+        litersConsumedObservable.set(litersConsumed);
         isOn = false;
         timer = new Timer();
     }
@@ -56,6 +62,7 @@ public class WaterTap {
 
     private void incrementConsumption() {
         litersConsumed++;
+        litersConsumedObservable.set(litersConsumed);
     }
 
     public boolean isOn() {
