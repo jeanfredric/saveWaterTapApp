@@ -18,14 +18,21 @@
 
     <!-- Jokes Fragment -->
     <string name="shake_device">"Shake your device for a new dazzling joke that saves water!"</string>
-    <string name="joke_title">Joke title</string>
-    <string name="joke_body">Once upon in the time there was two tomatoes that were about to cross the road... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="joke_title"></string>
+    <string name="joke_body"></string>
 
     <!-- Joke Resources -->
-    <string name="joke_title_src_1">Uppdaterat tomatskämt</string>
-    <string name="joke_body_src_1">Denna är uppdaterad</string>
-    <string name="joke_title_src_2">Gud</string>
-    <string name="joke_body_src_2">Förbannat</string>
-
+    <string name="joke_title_src_1">What’s the best thing about Switzerland?</string>
+    <string name="joke_body_src_1">I don’t know, but the flag is a big plus.</string>
+    <string name="joke_title_src_2">I invented a new word!</string>
+    <string name="joke_body_src_2">Plagiarism!</string>
+    <string name="joke_title_src_3">Helvetica and Times New Roman walk into a bar.</string>
+    <string name="joke_body_src_3">“Get out of here!” shouts the bartender. “We don’t serve your type.” </string>
+    <string name="joke_title_src_4">Did you hear about the claustrophobic astronaut?</string>
+    <string name="joke_body_src_4">He just needed a little space.</string>
+    <string name="joke_title_src_5">Why don’t scientists trust atoms?</string>
+    <string name="joke_body_src_5">Because they make up everything.</string>
+    <string name="joke_title_src_empty">Oops!</string>
+    <string name="joke_body_src_empty">No more jokes to display... But shake again for another round! :D</string>
 
 </resources>

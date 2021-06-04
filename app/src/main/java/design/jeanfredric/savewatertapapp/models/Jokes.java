@@ -24,6 +24,7 @@ public class Jokes implements Parcelable {
     private ArrayList<Joke> unViewedJokes;
     private ArrayList<Joke> viewedJokes;
     private Joke activeJoke;
+    private Joke emptyJoke;
 
     /**
      * Constructor.
@@ -67,6 +68,14 @@ public class Jokes implements Parcelable {
     }
 
     /**
+     * Sets the value for the empty joke.
+     * @param joke The joke that displays when all jokes have been viewed.
+     */
+    public void setEmpty(Joke joke) {
+        emptyJoke = joke;
+    }
+
+    /**
      * Randomizes one joke that yet hasn't been viewed.
      * @return The joke that yet hasn't been viewed.
      */
@@ -95,11 +104,10 @@ public class Jokes implements Parcelable {
 
     /**
      * Marks a previous unviewed joke as viewed.
-     * @param newJoke Joke to be remarked.
      */
-    public void markAsViewed(Joke newJoke) {
-        unViewedJokes.remove(newJoke);
-        viewedJokes.add(newJoke);
+    public void markAsViewed() {
+        unViewedJokes.remove(activeJoke);
+        viewedJokes.add(activeJoke);
     }
 
     /**
@@ -108,6 +116,13 @@ public class Jokes implements Parcelable {
      */
     public Joke getActiveJoke() {
         return activeJoke;
+    }
+
+    /**
+     * Makes the empty joke the one that is going to be displayed.
+     */
+    public void displayEmpty() {
+        activeJoke = emptyJoke;
     }
 
     /**

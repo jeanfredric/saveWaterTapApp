@@ -1,3 +1,18 @@
+/**
+ * An android mobile application that imitates the sound of a water tap in order to make people not
+ * consume water just to hide sounds. The application calculates how much water is saved and places
+ * it in relation to other water consuming facts. The application also display jokes to make the
+ * toilet visit more pleasant. Created at Umeå university course "5DV209 Utveckling av mobila
+ * applikationer" ST2021.
+ *
+ * MainActivity is a controller clas that is responsible to hold the bottom navigation bar and
+ * display the user's navigation choice.
+ *
+ * @author  Fredric Birgersson
+ * @version 1.0
+ * @since   2021-06-01
+ */
+
 package design.jeanfredric.savewatertapapp.controllers;
 
 import androidx.annotation.NonNull;
@@ -45,21 +60,27 @@ public class MainActivity extends AppCompatActivity {
         //Otherwise create new fragments
         if (waterTapFragment == null) {
             waterTapFragment = new WaterTapFragment();
-            fragmentManager.beginTransaction().add(R.id.fragment_container, waterTapFragment,
-                    WATERTAP_FRAGMENT).hide(waterTapFragment).commit();
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, waterTapFragment, WATERTAP_FRAGMENT)
+                    .hide(waterTapFragment)
+                    .commit();
         }
         if (jokesFragment == null) {
             jokesFragment = new JokesFragment();
-            fragmentManager.beginTransaction().add(R.id.fragment_container, jokesFragment,
-                    JOKES_FRAGMENT).hide(jokesFragment).commit();
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, jokesFragment, JOKES_FRAGMENT)
+                    .hide(jokesFragment)
+                    .commit();
         }
         if (aboutFragment == null) {
             aboutFragment = new AboutFragment();
-            fragmentManager.beginTransaction().add(R.id.fragment_container, aboutFragment,
-                    ABOUT_FRAGMENT).hide(aboutFragment).commit();
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, aboutFragment, ABOUT_FRAGMENT)
+                    .hide(aboutFragment)
+                    .commit();
         }
 
-        //Restore activeFragment if app has been destroyed
+        //Restore activeFragment if activity has been destroyed
         if(savedInstanceState != null) {
             switch (savedInstanceState.getString(ACTIVE_FRAGMENT_KEY)) {
                 case WATERTAP_FRAGMENT:
@@ -90,28 +111,38 @@ public class MainActivity extends AppCompatActivity {
      */
     private BottomNavigationView.OnNavigationItemSelectedListener navigatonItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.water_saver:
-                    fragmentManager.beginTransaction().hide(activeFragment).show(waterTapFragment).commit();
-                    activeFragment = waterTapFragment;
-                    break;
-                case R.id.jokes:
-                    fragmentManager.beginTransaction().hide(activeFragment).show(jokesFragment).commit();
-                    activeFragment = jokesFragment;
-                    break;
-                case R.id.about:
-                    fragmentManager.beginTransaction().hide(activeFragment).show(aboutFragment).commit();
-                    activeFragment = aboutFragment;
-                    break;
-            }
-            return true;
-        }
-    };
+                @Override
+                public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.water_saver:
+                            setCurrentFragment(waterTapFragment);
+                            break;
+                        case R.id.jokes:
+                            setCurrentFragment(jokesFragment);
+                            break;
+                        case R.id.about:
+                            setCurrentFragment(aboutFragment);
+                            break;
+                    }
+                    return true;
+                }
+            };
 
     /**
-     * Called when activity get destroyed and make it possible to retain data.
+     * Changes which Fragment is visible in the view.
+     * @param newFragment Fragment to make visible in the view.
+     */
+    private void setCurrentFragment (Fragment newFragment) {
+        fragmentManager.beginTransaction()
+                .hide(activeFragment)
+                .show(newFragment)
+                .commit();
+
+        activeFragment = newFragment;
+    }
+
+    /**
+     * Called when activity gets destroyed and make it possible to retain data.
      * @param outState data needed to be able to recover previous data.
      */
     @Override
@@ -121,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Called when activity is no longer visable.
+     * Called when activity is no longer visible.
      */
     @Override
     protected void onPause() {
@@ -129,4 +160,3 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().hide(activeFragment).commit();
     }
 }
-
