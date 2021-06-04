@@ -127,7 +127,7 @@ public class JokesFragment extends Fragment implements SensorEventListener {
         currentZ = event.values[2];
 
         //If shakes is detected, display a new joke
-        if(isNotFirstTime && !this.isHidden()) {
+        if(isNotFirstTime) {
             xDifference = Math.abs(lastX - currentX);
             yDifference = Math.abs(lastY - currentY);
             zDifference = Math.abs(lastZ - currentZ);
@@ -164,24 +164,25 @@ public class JokesFragment extends Fragment implements SensorEventListener {
     }
 
     /**
-     * Called when activity (parent) is visible.
+     * Activates the shake listener when parent activity is resumed and if this fragment is displayed.
      */
     @Override
     public void onResume() {
         super.onResume();
 
-        if(isAccelSensorAvailable) {
+        if (isAccelSensorAvailable && !isHidden()) {
             sensorManager.registerListener(this, accelSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
     }
 
     /**
-     * Called when activity (parent) is no longer visible.
+     * Deactivates the shake listener when parent activity activity pauses and this fragment is active.
      */
     @Override
     public void onPause() {
         super.onPause();
-        if(isAccelSensorAvailable) {
+
+        if(isAccelSensorAvailable && !isHidden()) {
             sensorManager.unregisterListener(this);
         }
     }
@@ -195,4 +196,22 @@ public class JokesFragment extends Fragment implements SensorEventListener {
         displayingImg.setImageResource(jokes.getActiveJoke().getJokeImage());
     }
 
+    /**
+     * Unregisters the shake listener if the fragment is hidden.
+     * @param hidden weather the fragment is hidden or not.
+     */
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            if(isAccelSensorAvailable) {
+                sensorManager.unregisterListener(this);
+            }
+        }
+        else {
+            if(isAccelSensorAvailable) {
+                sensorManager.registerListener(this, accelSensor, SensorManager.SENSOR_DELAY_NORMAL);
+            }
+        }
+    }
 }
