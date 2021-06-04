@@ -60,11 +60,10 @@ public class WaterTapFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_watertap, container, false);
         saveWaterButton = v.findViewById(R.id.save_water_btn);
 
-        //TODO: Detta vill sig inte (DataBinderMapperImpl.java:9: error: cannot find symbol
-        //TODO: import design.jeanfredric.savewatertapapp.databinding.FragmentWatertapBindingImpl;)
         FragmentWatertapBinding fragmentWatertapBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_watertap, null, false);
         View bindingView = fragmentWatertapBinding.getRoot();
         fragmentWatertapBinding.setWatertap(waterTap);
+        waterTap.start();
 
         //Button listener
         saveWaterButton.setOnClickListener(new View.OnClickListener() {
