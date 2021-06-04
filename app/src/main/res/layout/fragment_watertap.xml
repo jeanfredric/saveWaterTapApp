@@ -19,14 +19,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/liters_saved"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="More Fonts..."
-        android:text="@string/liters_saved"
+        android:text="0"
         android:textAppearance="?attr/textAppearanceHeadline1"
         android:textColor="?android:attr/textColorPrimary"
+        android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

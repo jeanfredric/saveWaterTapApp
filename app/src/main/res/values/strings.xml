@@ -5,6 +5,7 @@
     <string name="jokes">JOKES</string>
     <string name="about">ABOUT</string>
     <string name="save_water_btn">SAVE WATER NOW</string>
+    <string name="save_water_btn_on">TURN TAP OFF</string>
 
     <!-- Water Saver Fragment -->
     <string name="liters_saved">0</string>

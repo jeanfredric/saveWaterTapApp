@@ -15,5 +15,54 @@
 
 package design.jeanfredric.savewatertapapp.models;
 
+import android.util.Log;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class WaterTap {
+
+    private int litersConsumed;
+    private boolean isOn;
+    Timer timer;
+    TimerTask timerTask;
+
+    public WaterTap() {
+        litersConsumed = 0;
+        isOn = false;
+        timer = new Timer();
+    }
+
+    public void start() {
+        isOn = true;
+        //För varje sekund
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                incrementConsumption();
+                Log.d("LITERS_CONSUMED",Integer.toString(litersConsumed));
+            }
+        };
+        timer.schedule(timerTask,0, 1000);
+    }
+
+    public void stop() {
+        isOn = false;
+        //Stoppa timern i start
+        timerTask.cancel();
+
+
+    }
+
+    private void incrementConsumption() {
+        litersConsumed++;
+    }
+
+    public boolean isOn() {
+        return isOn;
+    }
+
+    public int getConsumption() {
+        return litersConsumed;
+    }
 }

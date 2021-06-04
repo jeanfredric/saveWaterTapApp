@@ -15,5 +15,25 @@
 
 package design.jeanfredric.savewatertapapp.models;
 
+import java.util.ArrayList;
+
 public class ConsumptionFacts {
+    private ArrayList<ConsumptionFact> facts;
+
+    public ConsumptionFacts() {
+        facts = new ArrayList<ConsumptionFact>();
+    }
+
+    public void add(int litersConsumed, String relatingFact) {
+        facts.add(new ConsumptionFact(litersConsumed, relatingFact));
+    }
+
+    public String getFact(int litersConsumed) {
+        for (ConsumptionFact cFact : facts) {
+            if (cFact.getLiters() == litersConsumed) {
+                return cFact.getFact();
+            }
+        }
+        return null;
+    }
 }

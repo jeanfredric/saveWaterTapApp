@@ -16,4 +16,24 @@
 package design.jeanfredric.savewatertapapp.models;
 
 public class ConsumptionFact {
+
+    private int liters;
+    private String fact;
+
+    public ConsumptionFact(int liters, String fact) {
+        this.liters = liters;
+        this.fact = fact;
+    }
+
+    public ConsumptionFact get() {
+        return this;
+    }
+
+    public int getLiters() {
+        return liters;
+    }
+
+    public String getFact() {
+        return fact;
+    }
 }

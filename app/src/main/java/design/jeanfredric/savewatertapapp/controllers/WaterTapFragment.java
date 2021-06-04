@@ -15,18 +15,30 @@
 
 package design.jeanfredric.savewatertapapp.controllers;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import design.jeanfredric.savewatertapapp.R;
+import design.jeanfredric.savewatertapapp.models.ConsumptionFacts;
+import design.jeanfredric.savewatertapapp.models.WaterTap;
 
 public class WaterTapFragment extends Fragment {
+
+    private Button saveWaterButton;
+    private TextView litersSaved;
+    private WaterTap waterTap;
+    private ConsumptionFacts consumptionFacts;
 
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -34,13 +46,31 @@ public class WaterTapFragment extends Fragment {
     public View onCreateView(@NonNull @org.jetbrains.annotations.NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_watertap, container, false);
 
+        waterTap = new WaterTap();
+        consumptionFacts = new ConsumptionFacts();
+        consumptionFacts.add(10, "How much water a Sub-Saharan African household consumes in a day.");
+        consumptionFacts.add(50, "Femtio är mycket de rerå rååÅ RÅ RÅ RÅ!!!");
+
+        saveWaterButton = v.findViewById(R.id.save_water_btn);
+        litersSaved = v.findViewById(R.id.liters_saved);
+        litersSaved.setText("0");
+
         //Button listener
+        saveWaterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!waterTap.isOn()) {
+                    waterTap.start();
+                    saveWaterButton.setText(R.string.save_water_btn_on);
+                    saveWaterButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.peach));
+                } else {
+                    waterTap.stop();
+                    saveWaterButton.setText(R.string.save_water_btn);
+                    saveWaterButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.neon_green));
 
-            //Spela upp ljud
-
-            //Iterera liters consumed
-
-            //Uppdatera equals consumptionFacts
+                }
+            }
+        });
 
         return v;
     }
