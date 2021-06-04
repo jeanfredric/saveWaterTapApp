@@ -8,6 +8,9 @@
  * MainActivity is a controller clas that is responsible to hold the bottom navigation bar and
  * display the user's navigation choice.
  *
+ * @tested_on   Pixel 3a    / 1080 x 2220 res   / API 30
+ *              Nexus 4     / 768 x 1280 res    / API 23
+ *
  * @author  Fredric Birgersson
  * @version 1.0
  * @since   2021-06-01
@@ -21,7 +24,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Listens to actual botton navigation menu-choice and decides what fragment to show.
+     * Listens to actual bottom navigation menu-choice and decides what fragment to show.
      */
     private BottomNavigationView.OnNavigationItemSelectedListener navigatonItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
