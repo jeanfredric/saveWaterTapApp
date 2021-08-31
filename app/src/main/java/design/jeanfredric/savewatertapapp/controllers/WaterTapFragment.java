@@ -15,6 +15,7 @@
 
 package design.jeanfredric.savewatertapapp.controllers;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,7 +77,7 @@ public class WaterTapFragment extends Fragment {
 
     public void toggleWaterTap(View view) {
         if (!waterTap.isOn()) {
-            waterTap.start();
+            waterTap.start(getContext());
             factTimerTask = new TimerTask() {
                 @Override
                 public void run() {
@@ -93,4 +94,9 @@ public class WaterTapFragment extends Fragment {
         btnTextObservable.set(btnText);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        waterTap.stopTapSound();
+    }
 }

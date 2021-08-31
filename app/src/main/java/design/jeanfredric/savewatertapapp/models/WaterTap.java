@@ -15,12 +15,16 @@
 
 package design.jeanfredric.savewatertapapp.models;
 
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.util.Log;
 
 import androidx.databinding.ObservableInt;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import design.jeanfredric.savewatertapapp.R;
 
 public class WaterTap {
     //TODO Funkare om man lägger denna private?
@@ -31,6 +35,8 @@ public class WaterTap {
     Timer timer;
     TimerTask timerTask;
 
+    MediaPlayer player;
+
     public WaterTap() {
         litersConsumed = 0;
         litersConsumedObservable = new ObservableInt();
@@ -39,9 +45,10 @@ public class WaterTap {
         timer = new Timer();
     }
 
-    public void start() {
+    public void start(Context context) {
         isOn = true;
-        //För varje sekund
+        playTapSound(context);
+
         timerTask = new TimerTask() {
             @Override
             public void run() {
@@ -56,6 +63,7 @@ public class WaterTap {
         isOn = false;
         //Stoppa timern i start
         timerTask.cancel();
+        stopTapSound();
 
 
     }
@@ -71,5 +79,25 @@ public class WaterTap {
 
     public int getConsumption() {
         return litersConsumed;
+    }
+
+    private void playTapSound(Context context) {
+        if (player == null) {
+            player = MediaPlayer.create(context, R.raw.watertapsound);
+            player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    playTapSound(context);
+                }
+            });
+        }
+        player.start();
+    }
+
+    public void stopTapSound() {
+        if (player != null) {
+            player.release();
+            player = null;
+        }
     }
 }
