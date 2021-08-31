@@ -16,17 +16,21 @@
 package design.jeanfredric.savewatertapapp.models;
 
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 
 import java.util.ArrayList;
 
 public class ConsumptionFacts {
-    private ArrayList<ConsumptionFact> facts;
 
+    private ArrayList<ConsumptionFact> facts;
     private String activeFact;
-    public final ObservableField<String> activeFactObservable = new ObservableField<>();
+    public final ObservableField<String> activeFactObservable;
 
     public ConsumptionFacts() {
-        facts = new ArrayList<ConsumptionFact>();
+        facts = new ArrayList<>();
+        activeFactObservable = new ObservableField<>();
+        activeFact = "Nothing... Hit that button to change that!";
+        activeFactObservable.set(activeFact);
     }
 
     public void add(int litersConsumed, String relatingFact) {
@@ -34,8 +38,11 @@ public class ConsumptionFacts {
     }
 
     public void setFact(int litersConsumed) {
-        activeFact = getFact(litersConsumed);
-        activeFactObservable.set(activeFact);
+        String newFact = getFact(litersConsumed);
+        if (newFact != null) {
+            activeFact = newFact;
+            activeFactObservable.set(activeFact);
+        }
     }
 
     private String getFact(int litersConsumed) {

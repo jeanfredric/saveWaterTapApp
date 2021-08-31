@@ -28,6 +28,9 @@ import androidx.databinding.Observable;
 import androidx.databinding.ObservableField;
 import androidx.fragment.app.Fragment;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import design.jeanfredric.savewatertapapp.R;
 import design.jeanfredric.savewatertapapp.databinding.FragmentWatertapBinding;
 import design.jeanfredric.savewatertapapp.models.ConsumptionFacts;
@@ -41,6 +44,8 @@ public class WaterTapFragment extends Fragment {
     public String btnText = "SAVE WATER NOW";
     public final ObservableField<String> btnTextObservable = new ObservableField<>();
 
+    private Timer factTimer;
+    private TimerTask factTimerTask;
 
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -50,6 +55,7 @@ public class WaterTapFragment extends Fragment {
         consumptionFacts = new ConsumptionFacts();
         consumptionFacts.add(10, "How much clean water a Sub-Saharan African household consumes in a day.");
         consumptionFacts.add(50, "Femtio är mycket de.");
+        factTimer = new Timer();
     }
 
     @Nullable
@@ -59,8 +65,9 @@ public class WaterTapFragment extends Fragment {
 
         FragmentWatertapBinding fragmentWatertapBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_watertap, null, false);
         View bindingView = fragmentWatertapBinding.getRoot();
-        fragmentWatertapBinding.setWatertap(waterTap);
         fragmentWatertapBinding.setWatertapFragment(this);
+        fragmentWatertapBinding.setWaterTap(waterTap);
+        fragmentWatertapBinding.setConsumptionFacts(consumptionFacts);
 
         btnTextObservable.set(btnText);
 
@@ -70,9 +77,17 @@ public class WaterTapFragment extends Fragment {
     public void toggleWaterTap(View view) {
         if (!waterTap.isOn()) {
             waterTap.start();
+            factTimerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    consumptionFacts.setFact(waterTap.getConsumption());
+                }
+            };
+            factTimer.schedule(factTimerTask,0, 900);
             btnText = "TURN TAP OFF";
         } else {
             waterTap.stop();
+            factTimerTask.cancel();
             btnText = "SAVE WATER NOW";
         }
         btnTextObservable.set(btnText);
