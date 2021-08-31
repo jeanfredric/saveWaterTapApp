@@ -17,6 +17,7 @@ package design.jeanfredric.savewatertapapp.controllers;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,15 +30,24 @@ import androidx.databinding.Observable;
 import androidx.databinding.ObservableField;
 import androidx.fragment.app.Fragment;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 import design.jeanfredric.savewatertapapp.R;
 import design.jeanfredric.savewatertapapp.databinding.FragmentWatertapBinding;
 import design.jeanfredric.savewatertapapp.models.ConsumptionFacts;
+import design.jeanfredric.savewatertapapp.models.FactTimer;
 import design.jeanfredric.savewatertapapp.models.WaterTap;
 
 public class WaterTapFragment extends Fragment {
+
+    private static final String WATERTAP_KEY = "WaterTapFragment.waterTap";
+    private static final String CONSUMPTIONFACTS_KEY = "WaterTapFragment.consumptionFacts";
+    private static final String FACTTIMER_KEY = "WaterTapFragment.factTimer";
+
+
 
     private WaterTap waterTap;
     private ConsumptionFacts consumptionFacts;
@@ -45,18 +55,30 @@ public class WaterTapFragment extends Fragment {
     public String btnText = "SAVE WATER NOW";
     public final ObservableField<String> btnTextObservable = new ObservableField<>();
 
-    private Timer factTimer;
-    private TimerTask factTimerTask;
+    FactTimer factTimer;
 
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        waterTap = new WaterTap();
-        consumptionFacts = new ConsumptionFacts();
-        consumptionFacts.add(10, "How much clean water a Sub-Saharan African household consumes in a day.");
-        consumptionFacts.add(50, "Femtio är mycket de.");
-        factTimer = new Timer();
+        if (savedInstanceState != null) {
+            waterTap = savedInstanceState.getParcelable(WATERTAP_KEY);
+            consumptionFacts = savedInstanceState.getParcelable(CONSUMPTIONFACTS_KEY);
+            factTimer = savedInstanceState.getParcelable(FACTTIMER_KEY);
+
+            if(waterTap.isOn()) {
+                //waterTap.start(getContext());
+                waterTap.playTapSound(getContext());
+                btnText = "TURN TAP OFF";
+            }
+        }
+        else {
+            waterTap = new WaterTap();
+            consumptionFacts = new ConsumptionFacts();
+            consumptionFacts.add(10, "How much clean water a Sub-Saharan African household consumes in a day.");
+            consumptionFacts.add(50, "Femtio är mycket de.");
+            factTimer = new FactTimer();
+        }
     }
 
     @Nullable
@@ -78,20 +100,22 @@ public class WaterTapFragment extends Fragment {
     public void toggleWaterTap(View view) {
         if (!waterTap.isOn()) {
             waterTap.start(getContext());
-            factTimerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    consumptionFacts.setFact(waterTap.getConsumption());
-                }
-            };
-            factTimer.schedule(factTimerTask,0, 900);
+            factTimer.start(consumptionFacts, waterTap);
             btnText = "TURN TAP OFF";
         } else {
             waterTap.stop();
-            factTimerTask.cancel();
+            factTimer.stop();
             btnText = "SAVE WATER NOW";
         }
         btnTextObservable.set(btnText);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
+        outState.putParcelable(WATERTAP_KEY, waterTap);
+        outState.putParcelable(CONSUMPTIONFACTS_KEY, consumptionFacts);
+        outState.putParcelable(FACTTIMER_KEY, factTimer);
+
     }
 
     @Override

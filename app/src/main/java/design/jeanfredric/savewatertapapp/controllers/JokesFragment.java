@@ -114,6 +114,7 @@ public class JokesFragment extends Fragment implements SensorEventListener {
     @Override
     public void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
       outState.putParcelable(JOKES_KEY, jokes);
+      super.onSaveInstanceState(outState);
     }
 
     /**

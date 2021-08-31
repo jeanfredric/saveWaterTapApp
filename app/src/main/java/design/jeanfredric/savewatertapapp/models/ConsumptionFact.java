@@ -15,7 +15,10 @@
 
 package design.jeanfredric.savewatertapapp.models;
 
-public class ConsumptionFact {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ConsumptionFact implements Parcelable {
 
     private int liters;
     private String fact;
@@ -24,6 +27,23 @@ public class ConsumptionFact {
         this.liters = liters;
         this.fact = fact;
     }
+
+    protected ConsumptionFact(Parcel in) {
+        liters = in.readInt();
+        fact = in.readString();
+    }
+
+    public static final Creator<ConsumptionFact> CREATOR = new Creator<ConsumptionFact>() {
+        @Override
+        public ConsumptionFact createFromParcel(Parcel in) {
+            return new ConsumptionFact(in);
+        }
+
+        @Override
+        public ConsumptionFact[] newArray(int size) {
+            return new ConsumptionFact[size];
+        }
+    };
 
     public ConsumptionFact get() {
         return this;
@@ -35,5 +55,16 @@ public class ConsumptionFact {
 
     public String getFact() {
         return fact;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(liters);
+        dest.writeString(fact);
     }
 }

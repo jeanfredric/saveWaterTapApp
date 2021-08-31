@@ -17,6 +17,8 @@ package design.jeanfredric.savewatertapapp.models;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import androidx.databinding.ObservableInt;
@@ -26,7 +28,7 @@ import java.util.TimerTask;
 
 import design.jeanfredric.savewatertapapp.R;
 
-public class WaterTap {
+public class WaterTap implements Parcelable {
     //TODO Funkare om man lägger denna private?
     public final ObservableInt litersConsumedObservable;
     private int litersConsumed;
@@ -45,6 +47,24 @@ public class WaterTap {
         timer = new Timer();
     }
 
+    protected WaterTap(Parcel in) {
+        litersConsumedObservable = in.readParcelable(ObservableInt.class.getClassLoader());
+        litersConsumed = in.readInt();
+        isOn = in.readByte() != 0;
+    }
+
+    public static final Creator<WaterTap> CREATOR = new Creator<WaterTap>() {
+        @Override
+        public WaterTap createFromParcel(Parcel in) {
+            return new WaterTap(in);
+        }
+
+        @Override
+        public WaterTap[] newArray(int size) {
+            return new WaterTap[size];
+        }
+    };
+
     public void start(Context context) {
         isOn = true;
         playTapSound(context);
@@ -53,7 +73,6 @@ public class WaterTap {
             @Override
             public void run() {
                 incrementConsumption();
-                Log.d("LITERS_CONSUMED",Integer.toString(litersConsumed));
             }
         };
         timer.schedule(timerTask,0, 1000);
@@ -81,7 +100,7 @@ public class WaterTap {
         return litersConsumed;
     }
 
-    private void playTapSound(Context context) {
+    public void playTapSound(Context context) {
         if (player == null) {
             player = MediaPlayer.create(context, R.raw.watertapsound);
             player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -99,5 +118,17 @@ public class WaterTap {
             player.release();
             player = null;
         }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(litersConsumedObservable, flags);
+        dest.writeInt(litersConsumed);
+        dest.writeByte((byte) (isOn ? 1 : 0));
     }
 }

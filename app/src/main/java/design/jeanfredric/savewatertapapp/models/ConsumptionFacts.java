@@ -15,23 +15,41 @@
 
 package design.jeanfredric.savewatertapapp.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
 import java.util.ArrayList;
 
-public class ConsumptionFacts {
+public class ConsumptionFacts implements Parcelable {
 
     private ArrayList<ConsumptionFact> facts;
     private String activeFact;
-    public final ObservableField<String> activeFactObservable;
+    public final ObservableField<String> activeFactObservable = new ObservableField<>();;
 
     public ConsumptionFacts() {
         facts = new ArrayList<>();
-        activeFactObservable = new ObservableField<>();
         activeFact = "Nothing... Hit that button to change that!";
         activeFactObservable.set(activeFact);
     }
+
+    protected ConsumptionFacts(Parcel in) {
+        activeFact = in.readString();
+    }
+
+    public static final Creator<ConsumptionFacts> CREATOR = new Creator<ConsumptionFacts>() {
+        @Override
+        public ConsumptionFacts createFromParcel(Parcel in) {
+            return new ConsumptionFacts(in);
+        }
+
+        @Override
+        public ConsumptionFacts[] newArray(int size) {
+            return new ConsumptionFacts[size];
+        }
+    };
 
     public void add(int litersConsumed, String relatingFact) {
         facts.add(new ConsumptionFact(litersConsumed, relatingFact));
@@ -53,5 +71,15 @@ public class ConsumptionFacts {
             }
         }
         return null;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(activeFact);
     }
 }
