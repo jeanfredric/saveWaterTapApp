@@ -15,19 +15,17 @@
 
 package design.jeanfredric.savewatertapapp.controllers;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.Observable;
+import androidx.databinding.ObservableField;
 import androidx.fragment.app.Fragment;
 
 import design.jeanfredric.savewatertapapp.R;
@@ -37,10 +35,11 @@ import design.jeanfredric.savewatertapapp.models.WaterTap;
 
 public class WaterTapFragment extends Fragment {
 
-    private Button saveWaterButton;
-    private TextView litersSaved;
     private WaterTap waterTap;
     private ConsumptionFacts consumptionFacts;
+
+    public String btnText = "SAVE WATER NOW";
+    public final ObservableField<String> btnTextObservable = new ObservableField<>();
 
 
     @Override
@@ -57,32 +56,26 @@ public class WaterTapFragment extends Fragment {
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @org.jetbrains.annotations.NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_watertap, container, false);
-        saveWaterButton = v.findViewById(R.id.save_water_btn);
 
         FragmentWatertapBinding fragmentWatertapBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_watertap, null, false);
         View bindingView = fragmentWatertapBinding.getRoot();
         fragmentWatertapBinding.setWatertap(waterTap);
-        waterTap.start();
+        fragmentWatertapBinding.setWatertapFragment(this);
 
-        //Button listener
-        saveWaterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!waterTap.isOn()) {
-                    waterTap.start();
-                    saveWaterButton.setText(R.string.save_water_btn_on);
-                    saveWaterButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.peach));
-                } else {
-                    waterTap.stop();
-                    saveWaterButton.setText(R.string.save_water_btn);
-                    saveWaterButton.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.neon_green));
+        btnTextObservable.set(btnText);
 
-                }
-            }
-        });
-
-        //TODO: Misstänker att jag måste köra all kommunikation via databinding
         return bindingView;
     }
+
+    public void toggleWaterTap(View view) {
+        if (!waterTap.isOn()) {
+            waterTap.start();
+            btnText = "TURN TAP OFF";
+        } else {
+            waterTap.stop();
+            btnText = "SAVE WATER NOW";
+        }
+        btnTextObservable.set(btnText);
+    }
+
 }
