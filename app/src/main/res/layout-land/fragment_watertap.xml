@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="waterTap"
+            type="design.jeanfredric.savewatertapapp.models.WaterTap" />
+
+        <variable
+            name="consumptionFacts"
+            type="design.jeanfredric.savewatertapapp.models.ConsumptionFacts" />
+
+        <variable
+            name="watertapFragment"
+            type="design.jeanfredric.savewatertapapp.controllers.WaterTapFragment" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/you_have_saved"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginBottom="0dp"
+        android:fontFamily="More Fonts..."
+        android:text="@string/you_have_saved"
+        android:textAppearance="?attr/textAppearanceOverline"
+        android:textColor="?android:attr/textColorSecondary"
+        app:layout_constraintBottom_toTopOf="@+id/liters_saved"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/liters_saved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="More Fonts..."
+        android:text="@{Integer.toString(waterTap.litersConsumedObservable)}"
+        android:textAppearance="?attr/textAppearanceHeadline3"
+        android:textColor="?android:attr/textColorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <TextView
+        android:id="@+id/liters_of_water"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:fontFamily="More Fonts..."
+        android:text="@string/liters_of_water_horizontal"
+        android:textAppearance="?attr/textAppearanceOverline"
+        android:textColor="?android:attr/textColorSecondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/liters_saved" />
+
+    <TextView
+        android:id="@+id/equals_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@{consumptionFacts.activeFactObservable}"
+        android:textAlignment="center"
+        android:textAppearance="?attr/textAppearanceBody1"
+        android:textColor="?android:attr/textColorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/liters_of_water" />
+
+    <Button
+        android:id="@+id/save_water_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@{watertapFragment.btnTextObservable}"
+        android:onClick="@{watertapFragment::toggleWaterTap}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -23,7 +23,7 @@
             <ImageView
                 android:id="@+id/joke_img"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="104dp"
                 android:contentDescription="Bildtext"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/tomato" />
@@ -71,16 +71,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/shake_device"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_vibrate" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

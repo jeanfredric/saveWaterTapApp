@@ -12,13 +12,12 @@
     <string name="you_have_saved">You have saved</string>
     <string name="liters_of_water">liters of water</string>
     <string name="equals">Which equals</string>
+    <string name="liters_of_water_horizontal">liters of water which equals</string>
     <string name="equals_text">Nothing... Hit that button to change that!</string>
 
     <!-- About Fragment -->
-    <string name="about_text">This app were made as reaction on the behaviour of people who
- * consume water just to hide sounds. The app calculates how much water is saved and places
- * it in relation to other water consuming facts. The app also display jokes to make the
- * toilet visit more pleasant.</string>
+    <string name="about_text">This app was made as an reaction on the behaviour of people (including
+        the developer himself) who consume water just to hide sounds.</string>
 
     <!-- Jokes Fragment -->
     <string name="shake_device">"Shake your device for a new dazzling joke that saves water!"</string>
