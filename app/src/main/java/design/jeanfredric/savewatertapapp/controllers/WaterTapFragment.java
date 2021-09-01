@@ -15,26 +15,16 @@
 
 package design.jeanfredric.savewatertapapp.controllers;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.Observable;
 import androidx.databinding.ObservableField;
 import androidx.fragment.app.Fragment;
-
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 import design.jeanfredric.savewatertapapp.R;
 import design.jeanfredric.savewatertapapp.databinding.FragmentWatertapBinding;
 import design.jeanfredric.savewatertapapp.models.ConsumptionFacts;

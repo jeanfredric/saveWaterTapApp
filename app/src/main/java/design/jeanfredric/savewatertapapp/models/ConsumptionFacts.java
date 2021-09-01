@@ -17,17 +17,14 @@ package design.jeanfredric.savewatertapapp.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableInt;
-
 import java.util.ArrayList;
 
 public class ConsumptionFacts implements Parcelable {
 
     private ArrayList<ConsumptionFact> facts;
     private String activeFact;
-    public final ObservableField<String> activeFactObservable = new ObservableField<>();;
+    public final ObservableField<String> activeFactObservable = new ObservableField<>();
 
     /**
      * Constructor.

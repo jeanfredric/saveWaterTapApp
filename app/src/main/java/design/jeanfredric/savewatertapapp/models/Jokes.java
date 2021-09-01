@@ -16,7 +16,6 @@ package design.jeanfredric.savewatertapapp.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import java.util.ArrayList;
 
 public class Jokes implements Parcelable {
@@ -30,8 +29,8 @@ public class Jokes implements Parcelable {
      * Constructor.
      */
     public Jokes() {
-        unViewedJokes = new ArrayList<Joke>();
-        viewedJokes = new ArrayList<Joke>();
+        unViewedJokes = new ArrayList<>();
+        viewedJokes = new ArrayList<>();
     }
 
     /**

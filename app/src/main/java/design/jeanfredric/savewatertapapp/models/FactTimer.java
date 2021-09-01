@@ -18,7 +18,6 @@ package design.jeanfredric.savewatertapapp.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import java.util.Timer;
 import java.util.TimerTask;
 

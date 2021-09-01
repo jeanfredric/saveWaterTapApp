@@ -21,24 +21,19 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import org.jetbrains.annotations.NotNull;
-
 import design.jeanfredric.savewatertapapp.R;
 import design.jeanfredric.savewatertapapp.models.Joke;
 import design.jeanfredric.savewatertapapp.models.Jokes;
-
 
 public class JokesFragment extends Fragment implements SensorEventListener {
 
@@ -118,7 +113,7 @@ public class JokesFragment extends Fragment implements SensorEventListener {
     }
 
     /**
-     * Code that will be rund when shake is detected.
+     * Code that will run when shake is detected.
      * @param event User physical initialized shake.
      */
     @Override

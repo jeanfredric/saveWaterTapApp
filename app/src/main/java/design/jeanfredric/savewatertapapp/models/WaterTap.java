@@ -19,13 +19,9 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
-
 import androidx.databinding.ObservableInt;
-
 import java.util.Timer;
 import java.util.TimerTask;
-
 import design.jeanfredric.savewatertapapp.R;
 
 public class WaterTap implements Parcelable {

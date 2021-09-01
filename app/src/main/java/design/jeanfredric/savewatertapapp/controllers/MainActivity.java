@@ -20,19 +20,13 @@ package design.jeanfredric.savewatertapapp.controllers;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import org.jetbrains.annotations.NotNull;
-
 import design.jeanfredric.savewatertapapp.R;
-import design.jeanfredric.savewatertapapp.databinding.FragmentWatertapBinding;
 
 public class MainActivity extends AppCompatActivity {
 
