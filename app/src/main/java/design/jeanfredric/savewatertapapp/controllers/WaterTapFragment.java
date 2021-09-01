@@ -78,7 +78,7 @@ public class WaterTapFragment extends Fragment {
             consumptionFacts.add(4, "How much clean water an average Sub-Sahara African household consumes in a day.*");
             consumptionFacts.add(7, "Five big Coca-cola bottles.");
             consumptionFacts.add(11, "Many people in the world exist on 11 litres of water per day or less. We can use that amount in one flush of the toilet.");
-            consumptionFacts.add(15, "How much water that on average are wasted when brushing your theeth.");
+            consumptionFacts.add(15, "How much water that on average are wasted when brushing your teeth.");
             consumptionFacts.add(35, "The production of one slice of bread.");
             consumptionFacts.add(75, "The production of a can of beer.");
             consumptionFacts.add(180, "The production of a soft drink.");
@@ -103,6 +103,10 @@ public class WaterTapFragment extends Fragment {
         return bindingView;
     }
 
+    /**
+     * Toggles the water tap status, gets called on button click.
+     * @param view View that calls the method on button click.
+     */
     public void toggleWaterTap(View view) {
         if (!waterTap.isOn()) {
             waterTap.start(getContext());
@@ -123,6 +127,9 @@ public class WaterTapFragment extends Fragment {
         outState.putParcelable(FACTTIMER_KEY, factTimer);
     }
 
+    /**
+     * Stops watertap sound when exiting the app.
+     */
     @Override
     public void onStop() {
         super.onStop();

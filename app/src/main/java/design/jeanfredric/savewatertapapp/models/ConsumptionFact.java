@@ -23,16 +23,28 @@ public class ConsumptionFact implements Parcelable {
     private int liters;
     private String fact;
 
+    /**
+     * Constructor.
+     * @param liters How many liters of water the fact is related to.
+     * @param fact The fact that relates to number of liters of water.
+     */
     public ConsumptionFact(int liters, String fact) {
         this.liters = liters;
         this.fact = fact;
     }
 
+    /**
+     * Parcelable method.
+     * @param in
+     */
     protected ConsumptionFact(Parcel in) {
         liters = in.readInt();
         fact = in.readString();
     }
 
+    /**
+     * Parcelable method.
+     */
     public static final Creator<ConsumptionFact> CREATOR = new Creator<ConsumptionFact>() {
         @Override
         public ConsumptionFact createFromParcel(Parcel in) {
@@ -45,23 +57,34 @@ public class ConsumptionFact implements Parcelable {
         }
     };
 
-    public ConsumptionFact get() {
-        return this;
-    }
-
+    /**
+     * @return How many liters of water the fact is related to.
+     */
     public int getLiters() {
         return liters;
     }
 
+    /**
+     * @return The fact that relates to number of liters of water.
+     */
     public String getFact() {
         return fact;
     }
 
+    /**
+     * Parcelable method.
+     * @return
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * Parcelable method.
+     * @param dest
+     * @param flags
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(liters);

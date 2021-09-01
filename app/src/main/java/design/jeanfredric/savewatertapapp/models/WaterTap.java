@@ -29,16 +29,18 @@ import java.util.TimerTask;
 import design.jeanfredric.savewatertapapp.R;
 
 public class WaterTap implements Parcelable {
-    //TODO Funkare om man lägger denna private?
+
     public final ObservableInt litersConsumedObservable;
     private int litersConsumed;
 
     private boolean isOn;
     Timer timer;
     TimerTask timerTask;
-
     MediaPlayer player;
 
+    /**
+     * Constructor.
+     */
     public WaterTap() {
         litersConsumed = 0;
         litersConsumedObservable = new ObservableInt();
@@ -47,12 +49,19 @@ public class WaterTap implements Parcelable {
         timer = new Timer();
     }
 
+    /**
+     * Parcelable method.
+     * @param in
+     */
     protected WaterTap(Parcel in) {
         litersConsumedObservable = in.readParcelable(ObservableInt.class.getClassLoader());
         litersConsumed = in.readInt();
         isOn = in.readByte() != 0;
     }
 
+    /**
+     * Parcelable method.
+     */
     public static final Creator<WaterTap> CREATOR = new Creator<WaterTap>() {
         @Override
         public WaterTap createFromParcel(Parcel in) {
@@ -65,6 +74,10 @@ public class WaterTap implements Parcelable {
         }
     };
 
+    /**
+     * Starts the water tap.
+     * @param context The context from where the function is called.
+     */
     public void start(Context context) {
         isOn = true;
         playTapSound(context);
@@ -75,9 +88,12 @@ public class WaterTap implements Parcelable {
                 incrementConsumption();
             }
         };
-        timer.schedule(timerTask,0, 1000);
+        timer.schedule(timerTask,15000, 15000);
     }
 
+    /**
+     * Stops the water tap.
+     */
     public void stop() {
         isOn = false;
         //Stoppa timern i start
@@ -87,19 +103,32 @@ public class WaterTap implements Parcelable {
 
     }
 
+    /**
+     * Increments the amount of liters consumed.
+     */
     private void incrementConsumption() {
         litersConsumed++;
         litersConsumedObservable.set(litersConsumed);
     }
 
+    /**
+     * @return True if the water tap is turned on.
+     */
     public boolean isOn() {
         return isOn;
     }
 
+    /**
+     * @return The total amount of litres consumed.
+     */
     public int getConsumption() {
         return litersConsumed;
     }
 
+    /**
+     * Plays a sound of a running water tap.
+     * @param context The context from where the function was called.
+     */
     public void playTapSound(Context context) {
         if (player == null) {
             player = MediaPlayer.create(context, R.raw.watertapsound);
@@ -113,6 +142,9 @@ public class WaterTap implements Parcelable {
         player.start();
     }
 
+    /**
+     * Stops the sound of a running water tap.
+     */
     public void stopTapSound() {
         if (player != null) {
             player.release();
@@ -120,11 +152,20 @@ public class WaterTap implements Parcelable {
         }
     }
 
+    /**
+     * Parcelable method.
+     * @return
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * Parcelable method.
+     * @param dest
+     * @param flags
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(litersConsumedObservable, flags);

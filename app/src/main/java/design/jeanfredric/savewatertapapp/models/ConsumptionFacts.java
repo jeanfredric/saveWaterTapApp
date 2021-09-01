@@ -29,16 +29,26 @@ public class ConsumptionFacts implements Parcelable {
     private String activeFact;
     public final ObservableField<String> activeFactObservable = new ObservableField<>();;
 
+    /**
+     * Constructor.
+     */
     public ConsumptionFacts() {
         facts = new ArrayList<>();
         activeFact = "Nothing... Hit that button to change that!";
         activeFactObservable.set(activeFact);
     }
 
+    /**
+     * Parcelable method.
+     * @param in
+     */
     protected ConsumptionFacts(Parcel in) {
         activeFact = in.readString();
     }
 
+    /**
+     * Parcelable method.
+     */
     public static final Creator<ConsumptionFacts> CREATOR = new Creator<ConsumptionFacts>() {
         @Override
         public ConsumptionFacts createFromParcel(Parcel in) {
@@ -51,10 +61,19 @@ public class ConsumptionFacts implements Parcelable {
         }
     };
 
+    /**
+     * Adds one new consumption fact to the array of facts.
+     * @param litersConsumed How many liters of water the fact is related to.
+     * @param relatingFact The fact that relates to number of liters of water.
+     */
     public void add(int litersConsumed, String relatingFact) {
         facts.add(new ConsumptionFact(litersConsumed, relatingFact));
     }
 
+    /**
+     * Sets which facts that is going to be the at one moment relevant fact.
+     * @param litersConsumed How many liters of water the fact is related to.
+     */
     public void setFact(int litersConsumed) {
         String newFact = getFact(litersConsumed);
         if (newFact != null) {
@@ -63,6 +82,10 @@ public class ConsumptionFacts implements Parcelable {
         }
     }
 
+    /**
+     * @param litersConsumed How many liters of water the fact is related to.
+     * @return The fact that relates to number of liters of water. Null if there is no related fact.
+     */
     private String getFact(int litersConsumed) {
 
         for (ConsumptionFact cFact : facts) {
@@ -73,11 +96,20 @@ public class ConsumptionFacts implements Parcelable {
         return null;
     }
 
+    /**
+     * Parcelable method.
+     * @return
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * Parcelable method.
+     * @param dest
+     * @param flags
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(activeFact);
