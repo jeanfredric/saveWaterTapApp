@@ -46,16 +46,15 @@ public class WaterTapFragment extends Fragment {
     private static final String WATERTAP_KEY = "WaterTapFragment.waterTap";
     private static final String CONSUMPTIONFACTS_KEY = "WaterTapFragment.consumptionFacts";
     private static final String FACTTIMER_KEY = "WaterTapFragment.factTimer";
-
-
+    private static final String BTN_OFF = "SAVE WATER NOW";
+    private static final String BTN_ON = "TURN TAP OFF";
 
     private WaterTap waterTap;
     private ConsumptionFacts consumptionFacts;
+    private FactTimer factTimer;
 
-    public String btnText = "SAVE WATER NOW";
+    public String btnText = BTN_OFF;
     public final ObservableField<String> btnTextObservable = new ObservableField<>();
-
-    FactTimer factTimer;
 
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -67,16 +66,23 @@ public class WaterTapFragment extends Fragment {
             factTimer = savedInstanceState.getParcelable(FACTTIMER_KEY);
 
             if(waterTap.isOn()) {
-                //waterTap.start(getContext());
                 waterTap.playTapSound(getContext());
-                btnText = "TURN TAP OFF";
+                btnText = BTN_ON;
             }
         }
         else {
             waterTap = new WaterTap();
             consumptionFacts = new ConsumptionFacts();
-            consumptionFacts.add(10, "How much clean water a Sub-Saharan African household consumes in a day.");
-            consumptionFacts.add(50, "Femtio är mycket de.");
+            consumptionFacts.add(0, "How much fresh water 10% of the world population has access to.");
+            consumptionFacts.add(2, "How much water a human should drink per day.");
+            consumptionFacts.add(4, "How much clean water an average Sub-Sahara African household consumes in a day.*");
+            consumptionFacts.add(7, "Five big Coca-cola bottles.");
+            consumptionFacts.add(11, "Many people in the world exist on 11 litres of water per day or less. We can use that amount in one flush of the toilet.");
+            consumptionFacts.add(15, "How much water that on average are wasted when brushing your theeth.");
+            consumptionFacts.add(35, "The production of one slice of bread.");
+            consumptionFacts.add(75, "The production of a can of beer.");
+            consumptionFacts.add(180, "The production of a soft drink.");
+            consumptionFacts.add(900, "How much water that is required to produce a smartphone.");
             factTimer = new FactTimer();
         }
     }
@@ -101,11 +107,11 @@ public class WaterTapFragment extends Fragment {
         if (!waterTap.isOn()) {
             waterTap.start(getContext());
             factTimer.start(consumptionFacts, waterTap);
-            btnText = "TURN TAP OFF";
+            btnText = BTN_ON;
         } else {
             waterTap.stop();
             factTimer.stop();
-            btnText = "SAVE WATER NOW";
+            btnText = BTN_OFF;
         }
         btnTextObservable.set(btnText);
     }
@@ -115,7 +121,6 @@ public class WaterTapFragment extends Fragment {
         outState.putParcelable(WATERTAP_KEY, waterTap);
         outState.putParcelable(CONSUMPTIONFACTS_KEY, consumptionFacts);
         outState.putParcelable(FACTTIMER_KEY, factTimer);
-
     }
 
     @Override
