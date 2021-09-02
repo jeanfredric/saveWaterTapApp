@@ -23,6 +23,8 @@ import java.util.TimerTask;
 
 public class FactTimer implements Parcelable {
 
+    private static final int FACTTIMERSPEED_MILLS = 1000;
+
     private Timer timer;
     private TimerTask timerTask;
 
@@ -67,7 +69,7 @@ public class FactTimer implements Parcelable {
                 consumptionFacts.setFact(waterTap.getConsumption());
             }
         };
-        timer.schedule(timerTask,0, 900);
+        timer.schedule(timerTask,0, FACTTIMERSPEED_MILLS);
     }
 
     /**

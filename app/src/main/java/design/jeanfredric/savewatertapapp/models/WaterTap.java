@@ -26,6 +26,8 @@ import design.jeanfredric.savewatertapapp.R;
 
 public class WaterTap implements Parcelable {
 
+    private static final int WATERTAPSPEED_MILLS = 15000;
+
     public final ObservableInt litersConsumedObservable;
     private int litersConsumed;
 
@@ -84,7 +86,7 @@ public class WaterTap implements Parcelable {
                 incrementConsumption();
             }
         };
-        timer.schedule(timerTask,15000, 15000);
+        timer.schedule(timerTask,WATERTAPSPEED_MILLS, WATERTAPSPEED_MILLS);
     }
 
     /**
