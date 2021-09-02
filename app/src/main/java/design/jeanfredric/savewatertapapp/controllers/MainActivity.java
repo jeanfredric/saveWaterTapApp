@@ -158,6 +158,9 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().hide(activeFragment).commit();
     }
 
+    /**
+     * Called when user presses the android native back button.
+     */
     @Override
     public void onBackPressed() {
         if (activeFragment != waterTapFragment) {
