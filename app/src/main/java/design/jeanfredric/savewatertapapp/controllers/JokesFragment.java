@@ -38,6 +38,7 @@ import design.jeanfredric.savewatertapapp.models.Jokes;
 public class JokesFragment extends Fragment implements SensorEventListener {
 
     private static final String JOKES_KEY = "JokesFragment.jokes";
+    private static final float SHAKE_THRESHOLD = 5f;
 
     private Jokes jokes;
     private TextView displayingTitle;
@@ -48,7 +49,6 @@ public class JokesFragment extends Fragment implements SensorEventListener {
     private Sensor accelSensor;
     private boolean isAccelSensorAvailable, isNotFirstTime = false;
     private float currentX, currentY, currentZ, lastX, lastY, lastZ, xDifference, yDifference, zDifference;
-    private float shakeThreshold = 5f;
 
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -128,9 +128,9 @@ public class JokesFragment extends Fragment implements SensorEventListener {
             yDifference = Math.abs(lastY - currentY);
             zDifference = Math.abs(lastZ - currentZ);
 
-            if((xDifference > shakeThreshold && yDifference > shakeThreshold) ||
-                    (xDifference > shakeThreshold && zDifference > shakeThreshold) ||
-                    (yDifference > shakeThreshold && zDifference > shakeThreshold)) {
+            if((xDifference > SHAKE_THRESHOLD && yDifference > SHAKE_THRESHOLD) ||
+                    (xDifference > SHAKE_THRESHOLD && zDifference > SHAKE_THRESHOLD) ||
+                    (yDifference > SHAKE_THRESHOLD && zDifference > SHAKE_THRESHOLD)) {
 
                 if(jokes.jokesAvailable()) {
                     jokes.randomizeJoke();
