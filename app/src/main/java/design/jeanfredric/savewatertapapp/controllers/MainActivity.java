@@ -157,4 +157,14 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         fragmentManager.beginTransaction().hide(activeFragment).commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        if (activeFragment != waterTapFragment) {
+            setCurrentFragment(waterTapFragment);
+            bottomNavigationView.setSelectedItemId(R.id.water_saver);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
