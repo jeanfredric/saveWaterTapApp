@@ -43,7 +43,7 @@ public class WaterTapFragment extends Fragment {
     private ConsumptionFacts consumptionFacts;
     private FactTimer factTimer;
 
-    public String btnText = BTN_OFF;
+    public String btnText;
     public final ObservableField<String> btnTextObservable = new ObservableField<>();
 
     @Override
@@ -58,6 +58,9 @@ public class WaterTapFragment extends Fragment {
             if(waterTap.isOn()) {
                 waterTap.playTapSound(getContext());
                 btnText = BTN_ON;
+            }
+            else {
+                btnText = BTN_OFF;
             }
         }
         else {
@@ -74,6 +77,7 @@ public class WaterTapFragment extends Fragment {
             consumptionFacts.add(180, "The production of a soft drink.");
             consumptionFacts.add(900, "How much water that is required to produce a smartphone.");
             factTimer = new FactTimer();
+            btnText = BTN_OFF;
         }
     }
 
@@ -121,8 +125,11 @@ public class WaterTapFragment extends Fragment {
      * Stops watertap sound when exiting the app.
      */
     @Override
-    public void onStop() {
-        super.onStop();
-        waterTap.stopTapSound();
+    public void onPause() {
+        waterTap.stop();
+        factTimer.stop();
+        btnText = BTN_OFF;
+        btnTextObservable.set(btnText);
+        super.onPause();
     }
 }
