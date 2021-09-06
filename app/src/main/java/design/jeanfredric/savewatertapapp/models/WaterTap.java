@@ -47,6 +47,10 @@ public class WaterTap implements Parcelable {
         timer = new Timer();
     }
 
+    /**
+     * Parcelable method.
+     * @param in
+     */
     protected WaterTap(Parcel in) {
         litersConsumedObservable = in.readParcelable(ObservableInt.class.getClassLoader());
         litersConsumed = in.readInt();
@@ -152,11 +156,20 @@ public class WaterTap implements Parcelable {
         }
     }
 
+    /**
+     * Parcelable method.
+     * @return
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * Parcelable method.
+     * @param dest
+     * @param flags
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(litersConsumedObservable, flags);
