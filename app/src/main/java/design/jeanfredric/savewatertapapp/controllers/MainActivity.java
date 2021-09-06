@@ -150,14 +150,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Called when activity is no longer visible.
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    /**
      * Called when user presses the android native back button.
      */
     @Override

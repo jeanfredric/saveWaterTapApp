@@ -122,14 +122,27 @@ public class WaterTapFragment extends Fragment {
     }
 
     /**
-     * Stops watertap sound when exiting the app.
+     * Stops water tap sound when exiting the app.
      */
     @Override
     public void onPause() {
-        waterTap.stop();
+        waterTap.pause();
         factTimer.stop();
         btnText = BTN_OFF;
         btnTextObservable.set(btnText);
         super.onPause();
+    }
+
+    /**
+     * Resumes the water tap if it was turned on when app got paused.
+     */
+    @Override
+    public void onResume() {
+        if (waterTap.isOn()) {
+            waterTap.start(getContext());
+            btnText = BTN_ON;
+            btnTextObservable.set(btnText);
+        }
+        super.onResume();
     }
 }

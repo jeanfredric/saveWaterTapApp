@@ -76,7 +76,9 @@ public class FactTimer implements Parcelable {
      * Stops the timer.
      */
     public void stop() {
-        timerTask.cancel();
+        if (timerTask != null) {
+            timerTask.cancel();
+        }
     }
 
     /**

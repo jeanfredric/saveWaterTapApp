@@ -87,11 +87,20 @@ public class WaterTap implements Parcelable {
      */
     public void stop() {
         isOn = false;
-        //Stoppa timern i start
-        timerTask.cancel();
+        if(timerTask != null) {
+            timerTask.cancel();
+        }
         stopTapSound();
+    }
 
-
+    /**
+     * Pauses the water tap.
+     */
+    public void pause() {
+        if(timerTask != null) {
+            timerTask.cancel();
+        }
+        stopTapSound();
     }
 
     /**
