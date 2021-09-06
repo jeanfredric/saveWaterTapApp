@@ -16,6 +16,7 @@ package design.jeanfredric.savewatertapapp.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 public class Jokes implements Parcelable {
@@ -34,17 +35,40 @@ public class Jokes implements Parcelable {
     }
 
     /**
-     * Parcelable method.
+     * Parcelable method
      * @param in
      */
     protected Jokes(Parcel in) {
         unViewedJokes = in.createTypedArrayList(Joke.CREATOR);
         viewedJokes = in.createTypedArrayList(Joke.CREATOR);
         activeJoke = in.readParcelable(Joke.class.getClassLoader());
+        emptyJoke = in.readParcelable(Joke.class.getClassLoader());
     }
 
     /**
-     * Parcelable method.
+     * Parcelable method
+     * @param dest
+     * @param flags
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(unViewedJokes);
+        dest.writeTypedList(viewedJokes);
+        dest.writeParcelable(activeJoke, flags);
+        dest.writeParcelable(emptyJoke, flags);
+    }
+
+    /**
+     * Parcelable method
+     * @return
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * Parcelable method
      */
     public static final Creator<Jokes> CREATOR = new Creator<Jokes>() {
         @Override
@@ -60,6 +84,7 @@ public class Jokes implements Parcelable {
 
     /**
      * Adds a joke to the collection of jokes.
+     *
      * @param joke The joke to be added.
      */
     public void add(Joke joke) {
@@ -68,6 +93,7 @@ public class Jokes implements Parcelable {
 
     /**
      * Sets the value for the empty joke.
+     *
      * @param joke The joke that displays when all jokes have been viewed.
      */
     public void setEmpty(Joke joke) {
@@ -76,17 +102,19 @@ public class Jokes implements Parcelable {
 
     /**
      * Randomizes one joke that yet hasn't been viewed.
+     *
      * @return The joke that yet hasn't been viewed.
      */
     public Joke randomizeJoke() {
         int nrOfUnViewedJokes = unViewedJokes.size();
-        int randomIndex = (int)(Math.random() * nrOfUnViewedJokes);
+        int randomIndex = (int) (Math.random() * nrOfUnViewedJokes);
         activeJoke = unViewedJokes.get(randomIndex);
         return activeJoke;
     }
 
     /**
      * Tells if there is more jokes that hasn't been seen yet.
+     *
      * @return True if there is unviewed jokes, otherwise false.
      */
     public boolean jokesAvailable() {
@@ -111,6 +139,7 @@ public class Jokes implements Parcelable {
 
     /**
      * Returns the active joke.
+     *
      * @return The active joke.
      */
     public Joke getActiveJoke() {
@@ -122,26 +151,5 @@ public class Jokes implements Parcelable {
      */
     public void displayEmpty() {
         activeJoke = emptyJoke;
-    }
-
-    /**
-     * Parcelable method.
-     * @return
-     */
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    /**
-     * Parcelable method.
-     * @param dest
-     * @param flags
-     */
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(unViewedJokes);
-        dest.writeTypedList(viewedJokes);
-        dest.writeParcelable(activeJoke, flags);
     }
 }
