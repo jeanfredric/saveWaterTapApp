@@ -26,7 +26,7 @@ import design.jeanfredric.savewatertapapp.R;
 
 public class WaterTap implements Parcelable {
 
-    private static final int WATERTAPSPEED_MILLS = 15000;
+    private static final int WATERTAPSPEED_MILLS = 1000;
 
     public final ObservableInt litersConsumedObservable;
     private int litersConsumed;
@@ -44,7 +44,6 @@ public class WaterTap implements Parcelable {
         litersConsumedObservable = new ObservableInt();
         litersConsumedObservable.set(litersConsumed);
         isOn = false;
-        timer = new Timer();
     }
 
     /**
@@ -76,7 +75,7 @@ public class WaterTap implements Parcelable {
     public void start(Context context) {
         isOn = true;
         playTapSound(context);
-
+        timer = new Timer();
         timerTask = new TimerTask() {
             @Override
             public void run() {

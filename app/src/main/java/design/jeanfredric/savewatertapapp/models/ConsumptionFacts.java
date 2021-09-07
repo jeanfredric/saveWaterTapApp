@@ -40,7 +40,28 @@ public class ConsumptionFacts implements Parcelable {
      * @param in
      */
     protected ConsumptionFacts(Parcel in) {
+        facts = in.createTypedArrayList(ConsumptionFact.CREATOR);
         activeFact = in.readString();
+    }
+
+    /**
+     * Parcelable method.
+     * @param dest
+     * @param flags
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(facts);
+        dest.writeString(activeFact);
+    }
+
+    /**
+     * Parcelable method.
+     * @return
+     */
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     /**
@@ -94,21 +115,9 @@ public class ConsumptionFacts implements Parcelable {
     }
 
     /**
-     * Parcelable method.
-     * @return
+     * Updates the active fact visible for the view.
      */
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    /**
-     * Parcelable method.
-     * @param dest
-     * @param flags
-     */
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(activeFact);
+    public void updateObservableFact() {
+        activeFactObservable.set(activeFact);
     }
 }

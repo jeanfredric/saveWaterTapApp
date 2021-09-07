@@ -44,6 +44,26 @@ public class ConsumptionFact implements Parcelable {
 
     /**
      * Parcelable method.
+     * @param dest
+     * @param flags
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(liters);
+        dest.writeString(fact);
+    }
+
+    /**
+     * Parcelable method.
+     * @return
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * Parcelable method.
      */
     public static final Creator<ConsumptionFact> CREATOR = new Creator<ConsumptionFact>() {
         @Override
@@ -71,23 +91,4 @@ public class ConsumptionFact implements Parcelable {
         return fact;
     }
 
-    /**
-     * Parcelable method.
-     * @return
-     */
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    /**
-     * Parcelable method.
-     * @param dest
-     * @param flags
-     */
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(liters);
-        dest.writeString(fact);
-    }
 }

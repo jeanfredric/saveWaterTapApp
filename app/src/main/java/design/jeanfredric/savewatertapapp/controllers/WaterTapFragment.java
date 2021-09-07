@@ -54,9 +54,11 @@ public class WaterTapFragment extends Fragment {
             waterTap = savedInstanceState.getParcelable(WATERTAP_KEY);
             consumptionFacts = savedInstanceState.getParcelable(CONSUMPTIONFACTS_KEY);
             factTimer = savedInstanceState.getParcelable(FACTTIMER_KEY);
+            consumptionFacts.updateObservableFact();
 
             if(waterTap.isOn()) {
-                waterTap.playTapSound(getContext());
+                waterTap.start(getContext());
+                factTimer.start(consumptionFacts, waterTap);
                 btnText = BTN_ON;
             }
             else {
@@ -79,6 +81,7 @@ public class WaterTapFragment extends Fragment {
             factTimer = new FactTimer();
             btnText = BTN_OFF;
         }
+        btnTextObservable.set(btnText);
     }
 
     @Nullable
@@ -98,6 +101,25 @@ public class WaterTapFragment extends Fragment {
     }
 
     /**
+     * Pause the water tap when closing app or opening another app.
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        waterTap.pause();
+        factTimer.stop();
+        btnText = BTN_OFF;
+        btnTextObservable.set(btnText);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
+        outState.putParcelable(WATERTAP_KEY, waterTap);
+        outState.putParcelable(CONSUMPTIONFACTS_KEY, consumptionFacts);
+        outState.putParcelable(FACTTIMER_KEY, factTimer);
+    }
+
+    /**
      * Toggles the water tap status, gets called on button click.
      * @param view View that calls the method on button click.
      */
@@ -112,37 +134,5 @@ public class WaterTapFragment extends Fragment {
             btnText = BTN_OFF;
         }
         btnTextObservable.set(btnText);
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull @NotNull Bundle outState) {
-        outState.putParcelable(WATERTAP_KEY, waterTap);
-        outState.putParcelable(CONSUMPTIONFACTS_KEY, consumptionFacts);
-        outState.putParcelable(FACTTIMER_KEY, factTimer);
-    }
-
-    /**
-     * Stops water tap sound when exiting the app.
-     */
-    @Override
-    public void onPause() {
-        waterTap.pause();
-        factTimer.stop();
-        btnText = BTN_OFF;
-        btnTextObservable.set(btnText);
-        super.onPause();
-    }
-
-    /**
-     * Resumes the water tap if it was turned on when app got paused.
-     */
-    @Override
-    public void onResume() {
-        if (waterTap.isOn()) {
-            waterTap.start(getContext());
-            btnText = BTN_ON;
-            btnTextObservable.set(btnText);
-        }
-        super.onResume();
     }
 }

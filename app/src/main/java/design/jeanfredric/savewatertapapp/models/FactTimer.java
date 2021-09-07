@@ -32,7 +32,7 @@ public class FactTimer implements Parcelable {
      * Constructor.
      */
     public FactTimer() {
-        timer = new Timer();
+
     }
 
     /**
@@ -63,6 +63,7 @@ public class FactTimer implements Parcelable {
      * @param waterTap A WaterTap object that consumes water.
      */
     public void start(ConsumptionFacts consumptionFacts, WaterTap waterTap) {
+        timer = new Timer();
         timerTask = new TimerTask() {
             @Override
             public void run() {
